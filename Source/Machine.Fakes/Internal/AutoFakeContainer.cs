@@ -54,6 +54,16 @@ namespace Machine.Fakes.Internal
             return _fakeEngine.VerifyBehaviorWasExecuted(fake, func);
         }
 
+        public void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent) where TFake : class
+        {
+            _fakeEngine.RaiseEvent(fake, registerEvent);
+        }
+
+        public EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e) where TFake : class
+        {
+            return _fakeEngine.WireItUp(fake, e);
+        }
+
         public T PartialMock<T>(params object[] args) where T : class
         {
             return _fakeEngine.PartialMock<T>(args);

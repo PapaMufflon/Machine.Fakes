@@ -59,5 +59,15 @@ namespace Machine.Fakes.Internal
         {
             return _fakeEngine.Stub<T>(args);
         }
+
+        public static void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent) where TFake : class
+        {
+            _fakeEngine.RaiseEvent(fake, registerEvent);
+        }
+
+        public static EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e) where TFake : class
+        {
+            return _fakeEngine.WireItUp(fake, e);
+        }
     }
 }

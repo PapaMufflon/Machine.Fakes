@@ -68,6 +68,19 @@ namespace Machine.Fakes.Adapters.Moq
             mock.Verify(func, Times.Never());
         }
 
+        public override void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent)
+        {
+            var mock = Mock.Get(fake);
+            mock.Raise(registerEvent, _eventArgs);
+        }
+
+        EventArgs _eventArgs;
+        public override EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e)
+        {
+            _eventArgs = e;
+            return null;
+        }
+
         protected override IMethodCallOccurance OnVerifyBehaviorWasExecuted<TFake>(
             TFake fake, 
             Expression<Action<TFake>> func) 

@@ -67,6 +67,16 @@ namespace Machine.Fakes
             return FakeEngineGateway.SetUpCommandBehaviorFor(fake, func);
         }
 
+        public static void Raise<TFake>(this TFake fake, Action<TFake> registerEvent) where TFake : class
+        {
+            FakeEngineGateway.RaiseEvent(fake, registerEvent);
+        }
+
+        public static EventHandler<EventArgs> WireItUp<TFake>(this TFake fake, EventArgs e) where TFake : class
+        {
+            return FakeEngineGateway.WireItUp(fake, e);
+        }
+
         /// <summary>
         /// Verifies that the behavior specified by <paramref name="func"/>
         /// was not executed on the fake specified by <paramref name="fake"/>.

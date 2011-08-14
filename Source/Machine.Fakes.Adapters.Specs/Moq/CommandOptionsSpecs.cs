@@ -38,4 +38,26 @@ namespace Machine.Fakes.Adapters.Specs.Moq
 
         It should_execute_the_configured_behavior = () => Catch.Exception(() => _fake.RemoveService(typeof (string))).ShouldNotBeNull();
     }
+
+    [Subject(typeof(MoqFakeEngine))]
+    public class Given_a_simple_configured_command_When_raising_an_event : WithCurrentEngine<MoqFakeEngine>
+    {
+        static ICanHazEvents _fake;
+        static bool _raised;
+
+        Establish context = () =>
+        {
+            _fake = FakeEngineGateway.Fake<ICanHazEvents>();
+            _fake.EventRaised += (s, e) => _raised = true;
+        };
+
+        Because of = () => _fake.Raise(x => x.EventRaised += null);
+
+        It should_be_recognized = () => _raised.ShouldBeTrue();
+    }
+
+    public interface ICanHazEvents
+    {
+        event EventHandler<EventArgs> EventRaised;
+    }
 }

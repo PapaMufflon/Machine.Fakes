@@ -149,6 +149,9 @@ namespace Machine.Fakes.Sdk
             return OnVerifyBehaviorWasExecuted(fake, Rewrite(func));
         }
 
+        public abstract void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent) where TFake : class;
+        public abstract EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e) where TFake : class;
+
         protected abstract IMethodCallOccurance OnVerifyBehaviorWasExecuted<TFake>(
             TFake fake,
             Expression<Action<TFake>> func) where TFake : class;
@@ -165,6 +168,7 @@ namespace Machine.Fakes.Sdk
             TFake fake,
             Expression<Action<TFake>> func) where TFake : class;
 
+        
         Expression<Func<TType, TValue>> Rewrite<TType, TValue>(
             Expression<Func<TType, TValue>> expression)
         {

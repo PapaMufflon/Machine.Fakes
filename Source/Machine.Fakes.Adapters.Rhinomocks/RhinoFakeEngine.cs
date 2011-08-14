@@ -52,6 +52,18 @@ namespace Machine.Fakes.Adapters.Rhinomocks
             fake.AssertWasNotCalled(compiledFunction);
         }
 
+        public override void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent)
+        {
+            fake.Raise(registerEvent, fake, _eventArgs);
+        }
+
+        EventArgs _eventArgs;
+        public override EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e)
+        {
+            _eventArgs = e;
+            return null;
+        }
+
         protected override IMethodCallOccurance OnVerifyBehaviorWasExecuted<TFake>(
             TFake fake, 
             Expression<Action<TFake>> func)

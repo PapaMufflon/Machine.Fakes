@@ -46,6 +46,16 @@ namespace Machine.Fakes.Adapters.NSubstitute
             func.Compile().Invoke(fake.DidNotReceive());
         }
 
+        public override void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent)
+        {
+            registerEvent.Invoke(fake);
+        }
+
+        public override EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e)
+        {
+            return Raise.EventWith(fake, e);
+        }
+
         protected override IMethodCallOccurance OnVerifyBehaviorWasExecuted<TFake>(
             TFake fake,
             Expression<Action<TFake>> func) 

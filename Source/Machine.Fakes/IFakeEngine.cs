@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using Machine.Fakes.Internal;
 
 namespace Machine.Fakes
 {
@@ -119,5 +118,8 @@ namespace Machine.Fakes
         IMethodCallOccurance VerifyBehaviorWasExecuted<TFake>(
             TFake fake, 
             Expression<Action<TFake>> func) where TFake : class ;
+
+        void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent) where TFake : class;
+        EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e) where TFake : class;
     }
 }

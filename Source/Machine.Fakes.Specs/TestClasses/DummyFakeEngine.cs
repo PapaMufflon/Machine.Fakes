@@ -40,6 +40,16 @@ namespace Machine.Fakes.Specs.TestClasses
             throw new NotImplementedException();
         }
 
+        public void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent) where TFake : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e) where TFake : class
+        {
+            throw new NotImplementedException();
+        }
+
         public TParam Match<TParam>(Expression<Func<TParam, bool>> matchExpression)
         {
             throw new NotImplementedException();

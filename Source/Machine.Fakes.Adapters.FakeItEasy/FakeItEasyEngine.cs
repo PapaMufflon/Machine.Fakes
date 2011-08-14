@@ -52,6 +52,16 @@ namespace Machine.Fakes.Adapters.FakeItEasy
             return new FakeItEasyCommandOptions(configuration);
         }
 
+        public override void RaiseEvent<TFake>(TFake fake, Action<TFake> registerEvent)
+        {
+            registerEvent.Invoke(fake);
+        }
+
+        public override EventHandler<EventArgs> WireItUp<TFake>(TFake fake, EventArgs e)
+        {
+            return Raise.With(e).Now;
+        }
+
         protected override IMethodCallOccurance OnVerifyBehaviorWasExecuted<TFake>(
             TFake fake, 
             Expression<Action<TFake>> func) 
